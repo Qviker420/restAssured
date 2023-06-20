@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class RestAPITest {
     @Test(dataProvider = "dataProvider")
-    public void circuitTest(Integer index, String countryTwo) {
+    public void circuitTest(Integer index, String country) {
         Response response = RestAssured.get("http://ergast.com/api/f1/2017/circuits.json");
         JsonPath jsonPath = response.jsonPath();
         String circuitId = jsonPath.getString(String.format("MRData.CircuitTable.Circuits[%s].circuitId", index));
@@ -20,7 +20,7 @@ public class RestAPITest {
         JsonPath jsonPathCountry = response.jsonPath();
         String firstCountry = jsonPathCountry.getString(String.format("MRData.CircuitTable.Circuits[%s].Location.country", index));
 
-        Assert.assertEquals(firstCountry, countryTwo);
+        Assert.assertEquals(country, firstCountry);
 
     }
 

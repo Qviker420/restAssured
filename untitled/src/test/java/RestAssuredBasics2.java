@@ -5,6 +5,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -22,6 +24,9 @@ public class RestAssuredBasics2 {
     @BeforeTest
     public void setup()
     {
+        ChromeOptions ops = new ChromeOptions();
+        ops.addArguments("--remote-allow-origins=*");
+        WebDriver driver = new ChromeDriver(ops);
         baseURI = "https://restful-booker.herokuapp.com/booking/22";
     }
     @Test

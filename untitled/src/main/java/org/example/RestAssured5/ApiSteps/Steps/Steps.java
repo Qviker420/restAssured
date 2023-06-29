@@ -14,11 +14,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class Steps {
 
+    //Runner - test/java/RestAssured5
     String token;
     BookingData bookingData;
     BookingDateDesrilize desBooking;
     Response response;
-    @Step
+    @Step("Set Data for Serialization Request")
     public Steps setData() {
         bookingData = BookingData.builder()
                 .firstName("duta")
@@ -29,7 +30,7 @@ public class Steps {
                 .build();
         return this;
     }
-    @Step
+    @Step("Get Authorication Token")
     public Steps getToken()
     {
         RequestSpecification request = given()
@@ -44,7 +45,7 @@ public class Steps {
 
         return this;
     }
-    @Step
+    @Step("Send Serialized Request")
     public Steps sendRequest()
     {
         response =  given()
@@ -58,13 +59,13 @@ public class Steps {
         response.then().log().all();
         return this;
     }
-    @Step
+    @Step("Deserialize Response")
     public Steps deserilize()
     {
         desBooking = response.as(BookingDateDesrilize.class);
         return this;
     }
-    @Step
+    @Step("Validate Status Code")
     public Steps validateStatusCode()
     {
         assertThat(response.statusCode(), equalTo(200));
